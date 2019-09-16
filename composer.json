@@ -1,0 +1,21 @@
+{
+    "name": "potestatem-dev/pagseguro-php",
+    "description": "Biblioteca de integração com o PagSeguro",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Henrique Marques",
+            "email": "henriquembarros@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["source/PagSeguroLibrary"]
+    },
+    "require": {
+        "php": ">=5.4.27",
+        "ext-curl": "*",
+        "lib-curl": "*",
+        "lib-openssl": "*",
+        "lib-libxml": "*"
+    }
+}
