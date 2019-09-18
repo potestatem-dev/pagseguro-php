@@ -46,7 +46,7 @@ $PagSeguroResources['paymentService']['serviceTimeout'] = 20;
 
 // Session service
 $PagSeguroResources['sessionService'] = array();
-$PagSeguroResources['sessionService']['url'] = "/v2/sessions";
+$PagSeguroResources['sessionService']['url'] = "/sessions";
 
 //Installment service
 $PagSeguroResources['installmentService'] = array();

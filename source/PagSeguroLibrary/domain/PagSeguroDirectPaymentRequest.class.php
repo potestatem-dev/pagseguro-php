@@ -38,6 +38,11 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
     private $receiverEmail;
 
     /***
+     * primaryReceiver public key
+     */
+    private $primaryReceiver;
+
+    /***
      * Billing information associated with this credit card
      */
     private $billing;
@@ -110,6 +115,23 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
     public function setReceiverEmail($receiverEmail)
     {
         $this->receiverEmail = $receiverEmail;
+    }
+
+    /***
+     * @return string the primaryReceiver
+     */
+    public function getPrimaryReceiver()
+    {
+        return $this->primaryReceiver;
+    }
+
+    /***
+     * Sets the primaryReceiver public key
+     * @param string $primaryReceiver
+     */
+    public function setPrimaryReceiver($primaryReceiver)
+    {
+        $this->primaryReceiver = $primaryReceiver;
     }
 
     /***
