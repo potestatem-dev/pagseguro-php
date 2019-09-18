@@ -1,6 +1,8 @@
 {
     "name": "potestatem-dev/pagseguro-php",
     "description": "Biblioteca de integração com o PagSeguro",
+    "type": "library",
+    "homepage": "https://github.com/potestatem-dev/pagseguro-php",
     "license": "MIT",
     "authors": [
         {
@@ -8,6 +10,7 @@
             "email": "henriquembarros@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "autoload": {
         "classmap": ["source/PagSeguroLibrary"]
     },
