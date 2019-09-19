@@ -54,8 +54,8 @@ $PagSeguroResources['installmentService']['url'] = "/v2/installments";
 
 // Direct payment service
 $PagSeguroResources['directPaymentService'] = array();
-$PagSeguroResources['directPaymentService']['servicePath'] = "/v2/transactions";
-$PagSeguroResources['directPaymentService']['checkoutUrl'] = "/v2/transactions";
+$PagSeguroResources['directPaymentService']['servicePath'] = "/transactions";
+$PagSeguroResources['directPaymentService']['checkoutUrl'] = "/transactions";
 $PagSeguroResources['directPaymentService']['serviceTimeout'] = 20;
 
 // PreApproval service

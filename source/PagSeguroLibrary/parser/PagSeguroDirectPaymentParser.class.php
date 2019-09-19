@@ -40,17 +40,17 @@ class PagSeguroDirectPaymentParser extends PagSeguroPaymentParser
 
         // paymentMode
         if ($payment->getPaymentMode() != null) {
-            $data["paymentMode"] = $payment->getPaymentMode()->getValue();
+            $data["payment.mode"] = $payment->getPaymentMode()->getValue();
         }
 
         // paymentMethod
         if ($payment->getPaymentMethod()->getPaymentMethod() != null) {
-            $data["paymentMethod"] = $payment->getPaymentMethod()->getPaymentMethod();
+            $data["payment.method"] = $payment->getPaymentMethod()->getPaymentMethod();
         }
 
         // senderHash
         if ($payment->getSenderHash() != null) {
-            $data["senderHash"] = $payment->getSenderHash();
+            $data["sender.hash"] = $payment->getSenderHash();
         }
 
          // receiverEmail
@@ -58,26 +58,31 @@ class PagSeguroDirectPaymentParser extends PagSeguroPaymentParser
             $data["receiverEmail"] = $payment->getReceiverEmail();
         }
 
+         // primaryReceiver
+        if ($payment->getPrimaryReceiver() != null) {
+            $data["primaryReceiver.publicKey"] = $payment->getPrimaryReceiver();
+        }
+
         // Bank name
         if ($payment->getOnlineDebit() != null) {
-            $data["bankName"] = $payment->getOnlineDebit()->getBankName();
+            $data["bank.name"] = $payment->getOnlineDebit()->getBankName();
         }
 
         //Credit Card
         if ($payment->getCreditCard() != null) {
             //Token
             if ($payment->getCreditCard()->getToken() != null) {
-                $data['creditCardToken'] = $payment->getCreditCard()->getToken();
+                $data['creditCard.token'] = $payment->getCreditCard()->getToken();
             }
 
             //Installments
             if ($payment->getCreditCard()->getInstallment() != null) {
                 $installment = $payment->getCreditCard()->getInstallment();
                 if ($installment->getQuantity() != null && $installment->getValue()) {
-                    $data['installmentQuantity'] = $installment->getQuantity();
-                    $data['installmentValue']    = PagSeguroHelper::decimalFormat($installment->getValue());
+                    $data['installment.quantity'] = $installment->getQuantity();
+                    $data['installment.value']    = PagSeguroHelper::decimalFormat($installment->getValue());
                     if ($installment->getNoInterestInstallmentQuantity() != null ) {
-                        $data['noInterestInstallmentQuantity'] = $installment->getNoInterestInstallmentQuantity();
+                        $data['installment.noInterestInstallmentQuantity'] = $installment->getNoInterestInstallmentQuantity();
                     }
                 }
             }
@@ -86,24 +91,24 @@ class PagSeguroDirectPaymentParser extends PagSeguroPaymentParser
             if ($payment->getCreditCard()->getHolder() != null) {
                 $holder = $payment->getCreditCard()->getHolder();
                 if ($holder->getName() != null) {
-                    $data['creditCardHolderName'] = $holder->getName();
+                    $data['creditCard.holder.name'] = $holder->getName();
                 }
                  // documents
                 /*** @var $document PagSeguroDocument */
                 if ($payment->getCreditCard()->getHolder()->getDocuments() != null) {
                     $documents = $payment->getCreditCard()->getHolder()->getDocuments();
-                        $data['creditCardHolderCPF'] = $documents->getValue();
+                        $data['creditCard.holder.CPF'] = $documents->getValue();
                 }
                 if ($holder->getBirthDate() != null) {
-                    $data['creditCardHolderBirthDate'] = $holder->getBirthDate();
+                    $data['creditCard.holder.birthDate'] = $holder->getBirthDate();
                 }
                 // phone
                 if ($holder->getPhone() != null) {
                     if ($holder->getPhone()->getAreaCode() != null) {
-                        $data['creditCardHolderAreaCode'] = $holder->getPhone()->getAreaCode();
+                        $data['creditCard.holder.areaCode'] = $holder->getPhone()->getAreaCode();
                     }
                     if ($holder->getPhone()->getNumber() != null) {
-                        $data['creditCardHolderPhone'] = $holder->getPhone()->getNumber();
+                        $data['creditCard.holder.phone'] = $holder->getPhone()->getNumber();
                     }
                 }
             }
@@ -112,28 +117,28 @@ class PagSeguroDirectPaymentParser extends PagSeguroPaymentParser
             if ($payment->getCreditCard()->getBilling() != null) {
                 $billingAddress = $payment->getCreditCard()->getBilling()->getAddress();
                 if ($billingAddress->getStreet() != null) {
-                    $data['billingAddressStreet'] = $billingAddress->getStreet();
+                    $data['billingAddress.street'] = $billingAddress->getStreet();
                 }
                 if ($billingAddress->getNumber() != null) {
-                    $data['billingAddressNumber'] = $billingAddress->getNumber();
+                    $data['billingAddress.number'] = $billingAddress->getNumber();
                 }
                 if ($billingAddress->getComplement() != null) {
-                    $data['billingAddressComplement'] = $billingAddress->getComplement();
+                    $data['billingAddress.complement'] = $billingAddress->getComplement();
                 }
                 if ($billingAddress->getCity() != null) {
-                    $data['billingAddressCity'] = $billingAddress->getCity();
+                    $data['billingAddress.city'] = $billingAddress->getCity();
                 }
                 if ($billingAddress->getState() != null) {
-                    $data['billingAddressState'] = $billingAddress->getState();
+                    $data['billingAddress.state'] = $billingAddress->getState();
                 }
                 if ($billingAddress->getDistrict() != null) {
-                    $data['billingAddressDistrict'] = $billingAddress->getDistrict();
+                    $data['billingAddress.district'] = $billingAddress->getDistrict();
                 }
                 if ($billingAddress->getPostalCode() != null) {
-                    $data['billingAddressPostalCode'] = $billingAddress->getPostalCode();
+                    $data['billingAddress.postalCode'] = $billingAddress->getPostalCode();
                 }
                 if ($billingAddress->getCountry() != null) {
-                    $data['billingAddressCountry'] = $billingAddress->getCountry();
+                    $data['billingAddress.country'] = $billingAddress->getCountry();
                 }
             }
 

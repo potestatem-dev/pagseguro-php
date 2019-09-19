@@ -637,7 +637,7 @@ class PagSeguroRequest
         $publicKey,
         $amount
     ) {
-        $param = $id;
+        $param = $publicKey;
         if ($this->receivers == null) {
             $this->receivers = array();
         }
