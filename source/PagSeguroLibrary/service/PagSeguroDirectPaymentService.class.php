@@ -75,9 +75,6 @@ class PagSeguroDirectPaymentService
 
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
-        //print_r(PagSeguroDirectPaymentParser::getData($request));
-        //exit;
-
         try {
             $connection = new PagSeguroHttpConnection();
             $connection->post(
