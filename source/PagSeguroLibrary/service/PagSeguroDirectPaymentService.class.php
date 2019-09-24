@@ -70,10 +70,11 @@ class PagSeguroDirectPaymentService
         $credentials,
         PagSeguroDirectPaymentRequest $request
     ) {
-
-        LogPagSeguro::info("PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - begin");
-
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        LogPagSeguro::info("PagSeguroDirectPaymentService.Register");
+        LogPagSeguro::info("URL: " . self::buildCheckoutRequestUrl($connectionData));
+        LogPagSeguro::info("POST: " . http_build_query(PagSeguroDirectPaymentParser::getData($request)));
 
         try {
             $connection = new PagSeguroHttpConnection();
@@ -107,11 +108,7 @@ class PagSeguroDirectPaymentService
         switch ($httpStatus->getType()) {
             case 'OK':
                 $paymentReturn = PagSeguroTransactionParser::readTransaction($connection->getResponse());
-
-                LogPagSeguro::info(
-                    "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - end {1}" .
-                    $paymentReturn->getCode()
-                );
+                LogPagSeguro::info("Response: " . $connection->getResponse());
                 break;
             case 'BAD_REQUEST':
                 $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
