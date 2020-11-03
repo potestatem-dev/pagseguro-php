@@ -50,9 +50,6 @@ class PagSeguroSessionService
 
         $url = self::buildSessionURL($connectionData)  . "?" . $connectionData->getCredentialsUrlQuery();
 
-        LogPagSeguro::info("PagSeguroSessionService.getSession");
-        LogPagSeguro::info("URL: " . $url);
-
         try {
             $connection = new PagSeguroHttpConnection();
             $connection->post(
@@ -61,8 +58,6 @@ class PagSeguroSessionService
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
             );
-
-            LogPagSeguro::info("Response: " . $connection->getResponse());
 
             $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 

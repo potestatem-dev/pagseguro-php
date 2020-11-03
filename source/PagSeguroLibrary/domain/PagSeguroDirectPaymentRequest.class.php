@@ -38,11 +38,6 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
     private $receiverEmail;
 
     /***
-     * primaryReceiver public key
-     */
-    private $primaryReceiver;
-
-    /***
      * Billing information associated with this credit card
      */
     private $billing;
@@ -115,23 +110,6 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
     public function setReceiverEmail($receiverEmail)
     {
         $this->receiverEmail = $receiverEmail;
-    }
-
-    /***
-     * @return string the primaryReceiver
-     */
-    public function getPrimaryReceiver()
-    {
-        return $this->primaryReceiver;
-    }
-
-    /***
-     * Sets the primaryReceiver public key
-     * @param string $primaryReceiver
-     */
-    public function setPrimaryReceiver($primaryReceiver)
-    {
-        $this->primaryReceiver = $primaryReceiver;
     }
 
     /***
@@ -307,7 +285,7 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
      * @param PagSeguroCredentials $credentials
      * @return String The URL to where the user needs to be redirected to in order to complete the payment process
      */
-    public function register($credentials)
+    public function register(PagSeguroCredentials $credentials)
     {
         return PagSeguroDirectPaymentService::checkoutRequest($credentials, $this);
     }

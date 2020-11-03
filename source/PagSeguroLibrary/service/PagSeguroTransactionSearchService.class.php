@@ -314,7 +314,7 @@ class PagSeguroTransactionSearchService
      * @param null $finalDate
      * @return array
      */
-    private static function buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate = null)
+    private function buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate = null)
     {
         $searchParams = array(
             'initialDate' => PagSeguroHelper::formatDate($initialDate),
@@ -373,7 +373,7 @@ class PagSeguroTransactionSearchService
      * @return bool|PagSeguroTransactionSearchResult
      * @throws PagSeguroServiceException
      */
-    private static function searchResult($connection, $initialDate = null, $finalDate = null)
+    private function searchResult($connection, $initialDate = null, $finalDate = null)
     {
 
         $httpStatus = new PagSeguroHttpStatus($connection->getStatus());

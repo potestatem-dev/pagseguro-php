@@ -34,8 +34,7 @@ class PagSeguroConfig
 
     private function __construct()
     {
-        //define('ALLOW_PAGSEGURO_CONFIG', true);
-        if (!defined('ALLOW_PAGSEGURO_CONFIG')) define('ALLOW_PAGSEGURO_CONFIG', true);
+        define('ALLOW_PAGSEGURO_CONFIG', true);
 
         if (!class_exists('PagSeguroConfigWrapper')) {
             require_once PagSeguroLibrary::getPath() .

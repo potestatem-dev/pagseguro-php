@@ -42,11 +42,6 @@ class PagSeguroRequest
     private $items;
 
     /***
-     * Receivers in this payment request
-     */
-    private $receivers;
-
-    /***
      * Uri to where the PagSeguro payment page should redirect the user after the payment information is processed.
      * Typically this is a confirmation page on your web site.
      * @var String
@@ -559,35 +554,6 @@ class PagSeguroRequest
     }
 
     /***
-     * @return array the receivers list in this payment request
-     */
-    public function getReceivers()
-    {
-        return $this->receivers;
-    }
-
-    /***
-     * Sets the receivers list in this payment request
-     * @param array $receivers
-     */
-    public function setReceivers(array $receivers)
-    {
-        if (is_array($receivers)) {
-            $i = array();
-            foreach ($receivers as $key => $receiver) {
-                if ($receiver instanceof PagSeguroReceiver) {
-                    $i[$key] = $receiver;
-                } else {
-                    if (is_array($receiver)) {
-                        $i[$key] = new PagSeguroReceiver($receiver);
-                    }
-                }
-            }
-            $this->receivers = $i;
-        }
-    }
-
-    /***
      * Adds a new product/item in this payment request
      *
      * @param String $id
@@ -623,34 +589,6 @@ class PagSeguroRequest
                 $item->setWeight($weight);
                 $item->setShippingCost($shippingCost);
                 array_push($this->items, $item);
-            }
-        }
-    }
-
-    /***
-     * Adds a new receiver in this payment request
-     *
-     * @param String $publicKey
-     * @param String $amount
-     */
-    public function addReceiver(
-        $publicKey,
-        $amount
-    ) {
-        $param = $publicKey;
-        if ($this->receivers == null) {
-            $this->receivers = array();
-        }
-        if (is_array($param)) {
-            array_push($this->receivers, new PagSeguroReceiver($param));
-        } else {
-            if ($param instanceof PagSeguroReceiver) {
-                array_push($this->receivers, $param);
-            } else {
-                $item = new PagSeguroReceiver();
-                $item->setPublicKey($param);
-                $item->setAmount($amount);
-                array_push($this->receivers, $item);
             }
         }
     }

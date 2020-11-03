@@ -51,19 +51,19 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
         // sender
         if ($payment->getSender() != null) {
             if ($payment->getSender()->getName() != null) {
-                $data['sender.name'] = $payment->getSender()->getName();
+                $data['senderName'] = $payment->getSender()->getName();
             }
             if ($payment->getSender()->getEmail() != null) {
-                $data['sender.email'] = $payment->getSender()->getEmail();
+                $data['senderEmail'] = $payment->getSender()->getEmail();
             }
 
             // phone
             if ($payment->getSender()->getPhone() != null) {
                 if ($payment->getSender()->getPhone()->getAreaCode() != null) {
-                    $data['sender.areaCode'] = $payment->getSender()->getPhone()->getAreaCode();
+                    $data['senderAreaCode'] = $payment->getSender()->getPhone()->getAreaCode();
                 }
                 if ($payment->getSender()->getPhone()->getNumber() != null) {
-                    $data['sender.phone'] = $payment->getSender()->getPhone()->getNumber();
+                    $data['senderPhone'] = $payment->getSender()->getPhone()->getNumber();
                 }
             }
 
@@ -75,8 +75,8 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
                     foreach ($documents as $document) {
                         if (!is_null($document)) {
                             $document->getType() == "CPF" ? 
-                                $data['sender.CPF'] = $document->getValue() : 
-                                $data['sender.CNPJ'] = $document->getValue();
+                                $data['senderCPF'] = $document->getValue() : 
+                                $data['senderCNPJ'] = $document->getValue();
                         }
                     }
                 }
@@ -100,39 +100,23 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
             foreach ($items as $key => $value) {
                 $i++;
                 if ($items[$key]->getId() != null) {
-                    $data["item[$i].id"] = $items[$key]->getId();
+                    $data["itemId$i"] = $items[$key]->getId();
                 }
                 if ($items[$key]->getDescription() != null) {
-                    $data["item[$i].description"] = $items[$key]->getDescription();
+                    $data["itemDescription$i"] = $items[$key]->getDescription();
                 }
                 if ($items[$key]->getQuantity() != null) {
-                    $data["item[$i].quantity"] = $items[$key]->getQuantity();
+                    $data["itemQuantity$i"] = $items[$key]->getQuantity();
                 }
                 if ($items[$key]->getAmount() != null) {
                     $amount = PagSeguroHelper::decimalFormat($items[$key]->getAmount());
-                    $data["item[$i].amount"] = $amount;
+                    $data["itemAmount$i"] = $amount;
                 }
                 if ($items[$key]->getWeight() != null) {
-                    $data["item[$i].weight"] = $items[$key]->getWeight();
+                    $data["itemWeight$i"] = $items[$key]->getWeight();
                 }
                 if ($items[$key]->getShippingCost() != null) {
-                    $data["item[$i].shippingCost"] = PagSeguroHelper::decimalFormat($items[$key]->getShippingCost());
-                }
-            }
-        }
-
-        // receivers
-        $receivers = $payment->getReceivers();
-        if (count($receivers) > 0) {
-            $i = 0;
-
-            foreach ($receivers as $key => $value) {
-                $i++;
-                if ($receivers[$key]->getPublicKey() != null) {
-                    $data["receiver[$i].publicKey"] = $receivers[$key]->getPublicKey();
-                }
-                if ($receivers[$key]->getAmount() != null) {
-                    $data["receiver[$i].split.amount"] = $receivers[$key]->getAmount();
+                    $data["itemShippingCost$i"] = PagSeguroHelper::decimalFormat($items[$key]->getShippingCost());
                 }
             }
         }
@@ -145,38 +129,38 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
         // shipping
         if ($payment->getShipping() != null) {
             if ($payment->getShipping()->getType() != null && $payment->getShipping()->getType()->getValue() != null) {
-                $data['shipping.type'] = $payment->getShipping()->getType()->getValue();
+                $data['shippingType'] = $payment->getShipping()->getType()->getValue();
             }
 
             if ($payment->getShipping()->getCost() != null && $payment->getShipping()->getCost() != null) {
-                $data['shipping.cost'] = PagSeguroHelper::decimalFormat($payment->getShipping()->getCost());
+                $data['shippingCost'] = PagSeguroHelper::decimalFormat($payment->getShipping()->getCost());
             }
 
             // address
             if ($payment->getShipping()->getAddress() != null) {
                 if ($payment->getShipping()->getAddress()->getStreet() != null) {
-                    $data['shipping.address.street'] = $payment->getShipping()->getAddress()->getStreet();
+                    $data['shippingAddressStreet'] = $payment->getShipping()->getAddress()->getStreet();
                 }
                 if ($payment->getShipping()->getAddress()->getNumber() != null) {
-                    $data['shipping.address.number'] = $payment->getShipping()->getAddress()->getNumber();
+                    $data['shippingAddressNumber'] = $payment->getShipping()->getAddress()->getNumber();
                 }
                 if ($payment->getShipping()->getAddress()->getComplement() != null) {
-                    $data['shipping.address.complement'] = $payment->getShipping()->getAddress()->getComplement();
+                    $data['shippingAddressComplement'] = $payment->getShipping()->getAddress()->getComplement();
                 }
                 if ($payment->getShipping()->getAddress()->getCity() != null) {
-                    $data['shipping.address.city'] = $payment->getShipping()->getAddress()->getCity();
+                    $data['shippingAddressCity'] = $payment->getShipping()->getAddress()->getCity();
                 }
                 if ($payment->getShipping()->getAddress()->getState() != null) {
-                    $data['shipping.address.state'] = $payment->getShipping()->getAddress()->getState();
+                    $data['shippingAddressState'] = $payment->getShipping()->getAddress()->getState();
                 }
                 if ($payment->getShipping()->getAddress()->getDistrict() != null) {
-                    $data['shipping.address.district'] = $payment->getShipping()->getAddress()->getDistrict();
+                    $data['shippingAddressDistrict'] = $payment->getShipping()->getAddress()->getDistrict();
                 }
                 if ($payment->getShipping()->getAddress()->getPostalCode() != null) {
-                    $data['shipping.address.postalCode'] = $payment->getShipping()->getAddress()->getPostalCode();
+                    $data['shippingAddressPostalCode'] = $payment->getShipping()->getAddress()->getPostalCode();
                 }
                 if ($payment->getShipping()->getAddress()->getCountry() != null) {
-                    $data['shipping.address.country'] = $payment->getShipping()->getAddress()->getCountry();
+                    $data['shippingAddressCountry'] = $payment->getShipping()->getAddress()->getCountry();
                 }
             }
         }
