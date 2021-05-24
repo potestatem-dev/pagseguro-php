@@ -37,7 +37,7 @@ class PagSeguroSender
     private $phone;
 
     /*** Sender documents */
-    private $documents;
+    private $documents = array();
 
     /*** Sender IP */
     private $ip;

@@ -35,7 +35,7 @@ class PagSeguroCreditCardHolder
     /***
      * Credit card holder cpf
      */
-    private $documents;
+    private $documents = array();
 
     /***
      * Credit card holder birth date
