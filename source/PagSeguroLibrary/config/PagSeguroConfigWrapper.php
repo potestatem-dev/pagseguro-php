@@ -74,10 +74,12 @@ class PagSeguroConfigWrapper
      */
     public static function getConfig()
     {
+
+
         $PagSeguroConfig = array();
 
         $PagSeguroConfig = array_merge_recursive(
-            self::getEnvironment(),
+            self::environment(),
             self::getCredentials(),
             self::getApplicationEncoding(),
             self::getLogConfig()
@@ -89,9 +91,9 @@ class PagSeguroConfigWrapper
     /**
      * @return mixed
      */
-    private static function getEnvironment()
+    private static function environment()
     {
-        $PagSeguroConfig['environment'] = getenv('PAGSEGURO_ENV') ?: self::PAGSEGURO_ENV;
+        $PagSeguroConfig['environment'] = config('pagseguro.env') ?: self::PAGSEGURO_ENV;
 
         return $PagSeguroConfig;
     }
@@ -102,19 +104,19 @@ class PagSeguroConfigWrapper
     private static function getCredentials()
     {
         $PagSeguroConfig['credentials'] = array();
-        $PagSeguroConfig['credentials']['email'] = getenv('PAGSEGURO_EMAIL')
+        $PagSeguroConfig['credentials']['email'] = config('pagseguro.email')
             ?: self::PAGSEGURO_EMAIL;
-        $PagSeguroConfig['credentials']['token']['production'] = getenv('PAGSEGURO_TOKEN_PRODUCTION')
+        $PagSeguroConfig['credentials']['token']['production'] = config('pagseguro.token.production')
             ?: self::PAGSEGURO_TOKEN_PRODUCTION;
-        $PagSeguroConfig['credentials']['token']['sandbox'] = getenv('PAGSEGURO_TOKEN_SANDBOX')
+        $PagSeguroConfig['credentials']['token']['sandbox'] = config('pagseguro.token.sandbox')
             ?: self::PAGSEGURO_TOKEN_SANDBOX;
-        $PagSeguroConfig['credentials']['appId']['production'] = getenv('PAGSEGURO_APP_ID_PRODUCTION')
+        $PagSeguroConfig['credentials']['appId']['production'] = config('pagseguro.appId.production')
             ?: self::PAGSEGURO_APP_ID_PRODUCTION;
-        $PagSeguroConfig['credentials']['appId']['sandbox'] = getenv('PAGSEGURO_APP_ID_SANDBOX')
+        $PagSeguroConfig['credentials']['appId']['sandbox'] = config('pagseguro.appId.sandbox')
             ?: self::PAGSEGURO_APP_ID_SANDBOX;
-        $PagSeguroConfig['credentials']['appKey']['production'] = getenv('PAGSEGURO_APP_KEY_PRODUCTION')
+        $PagSeguroConfig['credentials']['appKey']['production'] = config('pagseguro.appKey.production')
             ?: self::PAGSEGURO_APP_KEY_PRODUCTION;
-        $PagSeguroConfig['credentials']['appKey']['sandbox'] = getenv('PAGSEGURO_APP_KEY_SANDBOX')
+        $PagSeguroConfig['credentials']['appKey']['sandbox'] = config('pagseguro.appKey.sandbox')
             ?: self::PAGSEGURO_APP_KEY_SANDBOX;
 
         return $PagSeguroConfig;
@@ -126,9 +128,9 @@ class PagSeguroConfigWrapper
     private static function getApplicationEncoding()
     {
         $PagSeguroConfig['application'] = array();
-        $PagSeguroConfig['application']['charset'] = ( getenv('PAGSEGURO_CHARSET')
-            && ( getenv('PAGSEGURO_CHARSET') == "UTF-8" || getenv('PAGSEGURO_CHARSET') == "ISO-8859-1") )
-            ?: self::PAGSEGURO_CHARSET;
+        $PagSeguroConfig['application']['charset'] = ( env('PAGSEGURO_CHARSET')
+            && ( env('PAGSEGURO_CHARSET') == "UTF-8" || env('PAGSEGURO_CHARSET') == "ISO-8859-1") )
+            ? env('PAGSEGURO_CHARSET') : self::PAGSEGURO_CHARSET;
 
         return $PagSeguroConfig;
     }
@@ -139,9 +141,9 @@ class PagSeguroConfigWrapper
     private static function getLogConfig()
     {
         $PagSeguroConfig['log'] = array();
-        $PagSeguroConfig['log']['active'] = ( getenv('PAGSEGURO_LOG_ACTIVE')
-            && getenv('PAGSEGURO_LOG_ACTIVE') == 'true' ) ?: self::PAGSEGURO_LOG_ACTIVE;
-        $PagSeguroConfig['log']['fileLocation'] = getenv('PAGSEGURO_LOG_LOCATION')
+        $PagSeguroConfig['log']['active'] = ( env('PAGSEGURO_LOG_ACTIVE')
+            && env('PAGSEGURO_LOG_ACTIVE') == 'true' ) ?: self::PAGSEGURO_LOG_ACTIVE;
+        $PagSeguroConfig['log']['fileLocation'] = env('PAGSEGURO_LOG_LOCATION')
             ?: self::PAGSEGURO_LOG_LOCATION;
 
         return $PagSeguroConfig;
